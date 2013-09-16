@@ -1,0 +1,43 @@
+﻿@model MultipleFormsInTheSameViewSample.Models.User
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Login", "Membership", FormMethod.Post, new { }))
+{
+
+    @Html.LabelFor(m => m.Email)
+    @Html.TextBoxFor(m => m.Email)
+
+    @Html.LabelFor(m => m.Password)
+    @Html.TextBoxFor(m => m.Password)
+
+    <input type='Submit' value='Login' />
+
+}
+
+@using (Html.BeginForm("Register", "Membership", FormMethod.Post, new { }))
+{
+
+    @Html.LabelFor(m => m.FirstName)
+    @Html.TextBoxFor(m => m.FirstName)
+
+    @Html.LabelFor(m => m.LastName)
+    @Html.TextBoxFor(m => m.LastName)
+    
+    @Html.LabelFor(m => m.Email)
+    @Html.TextBoxFor(m => m.Email)
+
+    @Html.LabelFor(m => m.Password)
+    @Html.TextBoxFor(m => m.Password)
+
+    <input type='Submit' value='Register' />
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
