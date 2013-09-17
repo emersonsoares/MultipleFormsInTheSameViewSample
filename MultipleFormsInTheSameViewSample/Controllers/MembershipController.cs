@@ -1,25 +1,48 @@
 ﻿using System.Web.Mvc;
-using MultipleFormsInTheSameViewSample.Models;
+using MultipleFormsInTheSameViewSample.Filters;
+using MultipleFormsInTheSameViewSample.ViewModels;
 
 namespace MultipleFormsInTheSameViewSample.Controllers
 {
     public class MembershipController : Controller
     {
+        [ImportModelStateFromTempData]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Register(User user)
+        [IgnoreModelErrors("Login")]
+        [ExportModelStateToTempData]
+        public ActionResult Register(RegisterOrLoginViewModel user)
         {
-            return null;
+            //Vamos forçar um erro, para testar a validação
+            ModelState.AddModelError("RegisterEmail", "EmailInvalido");
+
+            if (ModelState.IsValid)
+                return RedirectToAction("Success");
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult Login(User user)
+        [IgnoreModelErrors("Register")]
+        [ExportModelStateToTempData]
+        public ActionResult Login(RegisterOrLoginViewModel user)
         {
-            return null;
+            //Vamos forçar um erro, para testar a validação
+            ModelState.AddModelError("LoginEmail", "EmailInvalido");
+
+            if (ModelState.IsValid)
+                return RedirectToAction("Success");
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Success()
+        {
+            return View();
         }
     }
 }

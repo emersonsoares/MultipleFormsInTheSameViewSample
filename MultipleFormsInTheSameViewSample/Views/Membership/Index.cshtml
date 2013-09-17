@@ -1,42 +1,46 @@
-﻿@model MultipleFormsInTheSameViewSample.Models.User
+﻿@model MultipleFormsInTheSameViewSample.ViewModels.RegisterOrLoginViewModel
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h1>Exemplo de View Tipada com mais de um formulário</h1>
 
-@using (Html.BeginForm("Login", "Membership", FormMethod.Post, new { }))
+@using (Html.BeginForm("Login", "Membership"))
 {
+    <legend>Login</legend>
+    @Html.LabelFor(m => m.LoginEmail)
+    @Html.TextBoxFor(m => m.LoginEmail)
+    @Html.ValidationMessageFor(m => m.LoginEmail)
 
-    @Html.LabelFor(m => m.Email)
-    @Html.TextBoxFor(m => m.Email)
-
-    @Html.LabelFor(m => m.Password)
-    @Html.TextBoxFor(m => m.Password)
+    @Html.LabelFor(m => m.LoginPassword)
+    @Html.PasswordFor(m => m.LoginPassword)
+    @Html.ValidationMessageFor(m => m.LoginPassword)
 
     <input type='Submit' value='Login' />
-
 }
 
-@using (Html.BeginForm("Register", "Membership", FormMethod.Post, new { }))
+@using (Html.BeginForm("Register", "Membership"))
 {
+    <legend>Registro</legend>
+    @Html.LabelFor(m => m.RegisterFirstName)
+    @Html.TextBoxFor(m => m.RegisterFirstName)
+    @Html.ValidationMessageFor(m => m.RegisterFirstName)
 
-    @Html.LabelFor(m => m.FirstName)
-    @Html.TextBoxFor(m => m.FirstName)
-
-    @Html.LabelFor(m => m.LastName)
-    @Html.TextBoxFor(m => m.LastName)
+    @Html.LabelFor(m => m.RegisterLastName)
+    @Html.TextBoxFor(m => m.RegisterLastName)
+    @Html.ValidationMessageFor(m => m.RegisterLastName)
     
-    @Html.LabelFor(m => m.Email)
-    @Html.TextBoxFor(m => m.Email)
+    @Html.LabelFor(m => m.RegisterEmail)
+    @Html.TextBoxFor(m => m.RegisterEmail)
+    @Html.ValidationMessageFor(m => m.RegisterEmail)
 
-    @Html.LabelFor(m => m.Password)
-    @Html.TextBoxFor(m => m.Password)
-
+    @Html.LabelFor(m => m.RegisterPassword)
+    @Html.PasswordFor(m => m.RegisterPassword)
+    @Html.ValidationMessageFor(m => m.RegisterPassword)
     <input type='Submit' value='Register' />
 }
-
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
